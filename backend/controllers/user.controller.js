@@ -1,87 +1,126 @@
-import User from "../models/user.js"
-import jwt from 'jsonwebtoken'
-import bcrypt from "bcryptjs"
-
-export const register = async (req, res) => {
+import User from "../models/user.js";
+export const addBookmark=async(req,res)=>{
     try {
-        // const { name, email, password } = req.body
-        console.log(req.body)
-        // if (!name || !email || !password) {
-        //     return res.status(400).json({ message: "please fill out all the fields !! ", success: false })
-        // }
-        if(!name){
-            return res.status(400).json({ message: "Namegdgs is required", success: false })
+        const {questionId} = req.body;
+        if(!questionId){
+            return res.status(400).json({ message: "Question ID is required", success: false });
         }
-        if(!email){
-            return res.status(400).json({ message: "Email is required", success: false })
-        }
-        if(!password){
-            return res.status(400).json({ message: "Password is required", success: false })
-        }
-       
-        const user = await User.findOne({ email })
-        if (user) {
-            return res.status(400).json({ message: "User already exists . Use different email ", success: false })
-        }
-        const hashedPassword = await bcrypt.hash(password, 10)
-        await User.create({
-            name,
-            email,
-            password: hashedPassword,
-        })
-        return res.status(201).json({ message: 'Account Created successfully ', success: true })
-    } catch (error) {
-        console.log(error)
-        return res.status(500).json({ message: "Internal server error", success: false })
-    }
-
-}
-
-export const login = async (req, res) => {
-    try {
-        const { email, password } = req.body
-        if (!email || !password ) {
-            res.status(400).json({ message: 'please fill all the fields', success: false })
-        }
-        let user = await User.findOne({ email })
+        const userId = req.id; 
+        const user = await User.findById(userId);
         if (!user) {
-            return res.status(400).json({ message: "User does not exists register first ", success: false })
+            return res.status(404).json({ message: "User not found", success: false });
         }
-        const isvalidUser = await bcrypt.compare(password, user.password)
-        if (!isvalidUser) {
-            return res.status(400).json({ message: 'incorrect email or password ,try again !!' })
+        if (user.bookmarks.includes(questionId)) {
+            return res.status(400).json({ message: "Question already bookmarked", success: false });
         }
-        const tokenData = {
-            userID: user._id
-        }
-        user = {
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-        }
-
-        const token = jwt.sign(tokenData, process.env.SECRET_KEY, { expiresIn: '1d' })
-        return res.status(200)
-                  .cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'None',secure:true })
-                  .json({ message: `Welcome ${(user.name).toUpperCase()}`, success: true, user })
-
-    }
-
-    catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: "Internal server error", success: false });
-
-    }
-}
-export const logout = async (req, res) => {
-    try {
-        return res.status(200).cookie("token", "", { maxAge: 0 }).json({ message: "logged out successfully", success: true });
-
+        user.bookmarks.push(questionId)
+        await user.save()
+        return res.status(200).json({ message: "Question bookmarked successfully", success: true ,bookmarks: user.bookmarks });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Internal server error", success: false });
+    }
 
-
+}
+export const getBookmarks=async(req,res)=>{
+    try {
+        const userId=req.id
+        const user=await User.findById(userId).populate('bookmarks')
+        if(!user){
+            return res.status(404).json({ message: "User not found", success: false });
+        }   
+        if(user.bookmarks.length===0){
+            return res.status(404).json({ message: "No bookmarks found", success: false });
+        }
+        return res.status(200).json({ message: "Bookmarks fetched successfully", success: true, bookmarks: user.bookmarks });
+        
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Internal server error", success: false });
+    }
+}
+export const removeBookmark=async(req,res)=>{
+    try {
+        const {questionId}=req.body
+        if(!questionId){
+            return res.status(400).json({ message: "Question ID is required", success: false });
+        }
+        const userId = req.id;  
+        const user=await User.findById(userId)
+        if(!user){
+            return res.status(404).json({ message: "User not found", success: false });
+        }
+        if(!user.bookmarks.includes(questionId)){
+            return res.status(400).json({ message: "Question not bookmarked", success: false });
+        }
+        user.bookmarks=user.bookmarks.filter((id)=>id.toString()!==questionId.toString())
+        await user.save()
+        return res.status(200).json({ message: "Bookmark removed !!", success: true, bookmarks: user.bookmarks });
+        
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Internal server error", success: false });
+    }
+}
+export const addToComplete=async(req,res)=>{
+    try {
+        const { questionId } = req.body;
+        if (!questionId) {
+            return res.status(400).json({ message: "Question ID is required", success: false });
+        }
+        const userId = req.id; 
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found", success: false });
+        }
+        if (user.completedQuestions.includes(questionId)) {
+            return res.status(400).json({ message: "Question already completed", success: false });
+        }
+        user.completedQuestions.push(questionId);
+        await user.save();
+        return res.status(200).json({ message: "Question marked as completed successfully", success: true, completedQuestions: user.completedQuestions });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Internal server error", success: false });
     }
 }
 
+export const getCompletedQuestions = async (req, res) => {
+    try {
+        const userId = req.id;
+        const user = await User.findById(userId).populate('completedQuestions');
+        if (!user) {
+            return res.status(404).json({ message: "User not found", success: false });
+        }
+        if (user.completedQuestions.length === 0) {
+            return res.status(404).json({ message: "No completed questions found", success: false });
+        }
+        return res.status(200).json({ message: "Completed questions fetched successfully", success: true, completedQuestions: user.completedQuestions });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Internal server error", success: false });
+    }
+}
+export const removeFromComplete = async (req, res) => {    
+    try {
+        const { questionId } = req.body;
+        if (!questionId) {
+            return res.status(400).json({ message: "Question ID is required", success: false });
+        }
+        const userId = req.id;
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found", success: false });
+        }
+        if (!user.completedQuestions.includes(questionId)) {
+            return res.status(400).json({ message: "Question not completed", success: false });
+        }
+        user.completedQuestions = user.completedQuestions.filter((id) => id.toString() !== questionId.toString());
+        await user.save();
+        return res.status(200).json({ message: "Completed question removed successfully", success: true, completedQuestions: user.completedQuestions });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Internal server error", success: false });
+    }
+}
+    

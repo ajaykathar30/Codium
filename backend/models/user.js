@@ -21,6 +21,11 @@ const userSchema = new Schema({
       ref: "Question"
     }
   ],
+  completedQuestions: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Question"
+  }]
+
 },{timestamps:true});
 const User=mongoose.model('User',userSchema)
 export default User;

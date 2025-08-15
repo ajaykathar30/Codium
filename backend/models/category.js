@@ -6,11 +6,13 @@ const categorySchema = new Schema({
     type:String,
     required:true
   },
- question:{
-    type:Mongoose.Schema.Types.ObjectId,
+ questions:[
+  {
+    type:mongoose.Schema.Types.ObjectId,
     ref:'Question',
-    required:true
-  },
+  }
+ ],
 },{timestamps:true});
+
 const Category=mongoose.model('Category',categorySchema)
 export default Category;

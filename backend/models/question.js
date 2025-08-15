@@ -8,14 +8,15 @@ const questionSchema = new Schema({
   },
   url:{
     type:String,
-    required:true,
-    unique:true
+    required:true
+  },
+  yt:{
+    type:String,
   },
   difficulty:{
     type:String,
-    enum:['easy','medium','hard'],
-    required:true
-  },
+    enum:['easy','medium','hard']
+  }
 },{timestamps:true});
 const Question=mongoose.model('Question',questionSchema)
 export default Question;

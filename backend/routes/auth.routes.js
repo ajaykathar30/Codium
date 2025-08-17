@@ -6,6 +6,6 @@ import isAuth from "../middleware/isAuth.js";
 const router = Router();
 router.route("/register").post(register);
 router.route("/login").post(login);
-router.route("/logout").post(isAuth,logout);
+router.route("/logout").get(isAuth,logout);
 
 export default router;

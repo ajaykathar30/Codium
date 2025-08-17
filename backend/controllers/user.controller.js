@@ -15,7 +15,7 @@ export const addBookmark=async(req,res)=>{
         }
         user.bookmarks.push(questionId)
         await user.save()
-        return res.status(200).json({ message: "Question bookmarked successfully", success: true ,bookmarks: user.bookmarks });
+        return res.status(200).json({ message: "Question bookmarked ", success: true ,bookmarks: user.bookmarks });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Internal server error", success: false });
@@ -32,7 +32,7 @@ export const getBookmarks=async(req,res)=>{
         if(user.bookmarks.length===0){
             return res.status(404).json({ message: "No bookmarks found", success: false });
         }
-        return res.status(200).json({ message: "Bookmarks fetched successfully", success: true, bookmarks: user.bookmarks });
+        return res.status(200).json({ message: "Bookmarks fetched ", success: true, bookmarks: user.bookmarks });
         
     } catch (error) {
         console.error(error);
@@ -78,7 +78,7 @@ export const addToComplete=async(req,res)=>{
         }
         user.completedQuestions.push(questionId);
         await user.save();
-        return res.status(200).json({ message: "Question marked as completed successfully", success: true, completedQuestions: user.completedQuestions });
+        return res.status(200).json({ message: "Question marked as completed ", success: true, completedQuestions: user.completedQuestions });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Internal server error", success: false });
@@ -95,7 +95,7 @@ export const getCompletedQuestions = async (req, res) => {
         if (user.completedQuestions.length === 0) {
             return res.status(404).json({ message: "No completed questions found", success: false });
         }
-        return res.status(200).json({ message: "Completed questions fetched successfully", success: true, completedQuestions: user.completedQuestions });
+        return res.status(200).json({ message: "Completed questions fetched ", success: true, completedQuestions: user.completedQuestions });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Internal server error", success: false });
@@ -117,7 +117,7 @@ export const removeFromComplete = async (req, res) => {
         }
         user.completedQuestions = user.completedQuestions.filter((id) => id.toString() !== questionId.toString());
         await user.save();
-        return res.status(200).json({ message: "Completed question removed successfully", success: true, completedQuestions: user.completedQuestions });
+        return res.status(200).json({ message: "Question unchecked", success: true, completedQuestions: user.completedQuestions });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Internal server error", success: false });

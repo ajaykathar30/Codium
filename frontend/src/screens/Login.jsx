@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { set } from 'mongoose';
 import { setUser } from '../../redux/authSlice';
 import toast from 'react-hot-toast';
+import Footer from '../components/Footer';
 const Login = () => {
     const dispatch = useDispatch();
     const navigate=useNavigate()
@@ -52,6 +53,7 @@ const Login = () => {
             </form>
       </div>
     </div>
+    <Footer/>
     </div>
   )
 }

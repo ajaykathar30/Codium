@@ -5,10 +5,11 @@ import Headings from '../components/Headings'
 import QuestionTable from '../components/QuestionTable'
 import useGetAllQuestions from '../hooks/useGetAllQuestions'
 import { useSelector } from 'react-redux'
+import Footer from '../components/Footer'
 const Practice = () => {
-    useGetAllQuestions()
-    const questions = useSelector((state) => state.question.questions);
     
+    const questions = useSelector((state) => state.question.questions);
+    useGetAllQuestions()
   return (
     <div>
       <Navbar/>
@@ -31,6 +32,7 @@ const Practice = () => {
         }
       
         </div>
+        <Footer/>
     </div>
   )
 }

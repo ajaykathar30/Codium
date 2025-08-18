@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/navbar'
 import { AUTH_API_END_POINT } from '../utils/constant'
 import axios from 'axios';
+import Footer from '../components/Footer';
 const Signup = () => {
   const [user, setuser] = useState({ name: "", email: "", password: "" })
   const navigate = useNavigate()
@@ -44,6 +45,7 @@ const Signup = () => {
             </form>
       </div>
     </div>
+    <Footer/>
     </div>
   )
 }

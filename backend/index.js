@@ -6,11 +6,14 @@ import connectDB from './utils/db.js';
 import authRoute from './routes/auth.routes.js'
 import contentRoute from './routes/content.routes.js'
 import userRoute from './routes/user.routes.js'
+import limiter from './middleware/rateLimit.js';
 dotenv.config({})
 
 
 const app = express()
 const port = process.env.PORT || 3000
+
+
 
 
 // middleware

@@ -2,8 +2,10 @@ import React from 'react'
 import Navbar from '../components/navbar'
 import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
+import useGetAllQuestions from '../hooks/useGetAllQuestions'
 
 const Home = () => {
+  
   return (
     <div>
       <Navbar />

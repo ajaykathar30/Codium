@@ -5,6 +5,7 @@ import axios from 'axios'
 import { AUTH_API_END_POINT } from '../utils/constant'
 import toast from 'react-hot-toast'
 import { setUser } from '../../redux/authSlice'
+import { setBookmarks } from '../../redux/questionSlice'
 
 
 
@@ -38,6 +39,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       dispatch(setUser(null))
+      dispatch(setBookmarks([]))
       await axios.get(`${AUTH_API_END_POINT}/logout`,{withCredentials:true});
       toast.success("Logout successful");
       navigate('/login');

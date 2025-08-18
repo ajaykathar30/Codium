@@ -3,6 +3,7 @@ import Navbar from '../components/navbar'
 import { useSelector } from 'react-redux'
 import useGetBookmarkQuestion from '../hooks/useGetBookmarkQuestion';
 import ProfileTable from '../components/ProfileTable';
+import Footer from '../components/Footer';
 
 const Profile = () => {
   const {user}=useSelector((state) => state.auth);
@@ -14,10 +15,10 @@ const Profile = () => {
   return (
     <div>
      <Navbar/>
-     <div className='mx-[7%] my-10'>
+     <div className='mx-auto max-w-4xl my-10'>
         <h1 className='text-3xl font-bold'>Profile</h1>
-        <div className='flex-row gap-5 mt-5 space-y-10'>
-          <div className='w-1/3 bg-base-200 p-5 rounded-lg space-y-3'>
+        <div className='flex flex-wrap items-center gap-5 mt-5 space-y-10'>
+          <div className='w-1/3 bg-base-200 p-5 min-w-[300px] rounded-lg space-y-3'>
             <h2 className='text-xl font-semibold'>User Information</h2>
             <p className='mt-2 font-medium'>Name: {user?.name}</p>
             <p className='font-medium'>Email: {user?.email}</p>
@@ -39,6 +40,7 @@ const Profile = () => {
         </div>
       <ProfileTable bookmarks={bookmarks}/>
       </div>
+      <Footer/>
     </div>
   )
 }

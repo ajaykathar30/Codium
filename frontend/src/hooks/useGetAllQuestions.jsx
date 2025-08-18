@@ -1,11 +1,12 @@
 import { useEffect } from "react"
 import { CONTENT_API_END_POINT } from "../utils/constant";
 import { setQuestions } from "../../redux/questionSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import axios from "axios";
 
 const useGetAllQuestions = () => {
  const dispatch = useDispatch();
+ const {questions}=useSelector((state)=>state.question)
 
  useEffect(() => {
     const fetchQuestions = async () => {
@@ -16,8 +17,12 @@ const useGetAllQuestions = () => {
         console.error("Error fetching questions:", error);
       }
     };
-
-    fetchQuestions();
+    if(!questions || questions.length === 0) {
+      fetchQuestions();
+    }
+    else{
+      console.log("Questions already fetched, skipping API call.");
+    }
  }, [])
 
 }

@@ -5,6 +5,7 @@ const Explore = () => {
   return (
     <div>
       <Navbar/>
+      <h2>Search questions by title</h2>
     </div>
   )
 }

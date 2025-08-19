@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import Navbar from '../components/navbar';
 import axios from 'axios';
 import { AUTH_API_END_POINT } from '../utils/constant';
 import { useDispatch } from 'react-redux';
-import { set } from 'mongoose';
 import { setUser } from '../../redux/authSlice';
 import toast from 'react-hot-toast';
 import Footer from '../components/Footer';

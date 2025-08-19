@@ -14,3 +14,6 @@
 - Axios  
 - Redux  
 
+## 🚀 Live Demo
+
+[Click here to view the app](https://codered-frontend.onrender.com)

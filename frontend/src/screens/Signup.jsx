@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Navbar from '../components/navbar'
+import Navbar from '../components/Navbar'
 import { AUTH_API_END_POINT } from '../utils/constant'
 import axios from 'axios';
 import Footer from '../components/Footer';

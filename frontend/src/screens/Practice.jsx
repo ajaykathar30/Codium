@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../components/navbar'
+import Navbar from '../components/Navbar'
 import QuestionStrip from '../components/QuestionStrip'
 import Headings from '../components/Headings'
 import QuestionTable from '../components/QuestionTable'

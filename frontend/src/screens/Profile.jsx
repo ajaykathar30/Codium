@@ -1,5 +1,5 @@
 import React, { use } from 'react'
-import Navbar from '../components/navbar'
+import Navbar from '../components/Navbar'
 import { useSelector } from 'react-redux'
 import useGetBookmarkQuestion from '../hooks/useGetBookmarkQuestion';
 import ProfileTable from '../components/ProfileTable';

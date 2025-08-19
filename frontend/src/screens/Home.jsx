@@ -1,14 +1,15 @@
 import React from 'react'
-import Navbar from '../components/navbar'
+
 import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
-import useGetAllQuestions from '../hooks/useGetAllQuestions'
+import Navbar from '../components/Navbar'
+
 
 const Home = () => {
   
   return (
     <div>
-      <Navbar />
+      <Navbar/>
       <div
         className="hero min-h-screen"
         style={{

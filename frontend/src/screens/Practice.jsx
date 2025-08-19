@@ -15,7 +15,7 @@ const Practice = () => {
       <Navbar/>
       {
        (!questions || questions.length === 0)?(
-        <h1 className='mx-[10%]'>Fetching Questions ...</h1>
+        <h1 className='mx-[10%] text-2xl'>Fetching Questions ...</h1>
        ):
        (
           <div className='flex mx-auto my-10 flex-col gap-5 max-w-5xl'>

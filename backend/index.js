@@ -18,7 +18,7 @@ app.set("trust proxy", 1);
 
 // middleware
 app.use(cors({
-  origin: "http://localhost:5173", 
+  origin: ["http://localhost:5173","https://codered-frontend.onrender.com"], 
   credentials: true, 
 }));
 app.use(express.json())

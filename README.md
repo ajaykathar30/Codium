@@ -1,6 +1,16 @@
-# IIT2024037 AJAY KATHAR
- stack used -
-  backend -nodejs,express,mongodb
-  frontend- reactjs 
- tools and library used- daisyui, axios, redux 
+# IIT2024037 - AJAY KATHAR
+
+## 🚀 Tech Stack
+### Backend
+- Node.js  
+- Express.js  
+- MongoDB  
+
+### Frontend
+- React.js  
+
+### Tools & Libraries
+- DaisyUI  
+- Axios  
+- Redux  
 

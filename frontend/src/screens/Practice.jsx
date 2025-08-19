@@ -13,7 +13,12 @@ const Practice = () => {
   return (
     <div>
       <Navbar/>
-      <div className='flex mx-auto my-10 flex-col gap-5 max-w-5xl'>
+      {
+       (!questions || questions.length === 0)?(
+        <h1 className='mx-[10%]'>Fetching Questions ...</h1>
+       ):
+       (
+          <div className='flex mx-auto my-10 flex-col gap-5 max-w-5xl'>
         <div>
             <h1 className='font-bold text-2xl'>Hand Picked Questions for Practise </h1>
         </div>
@@ -32,6 +37,9 @@ const Practice = () => {
         }
       
         </div>
+       )
+      }
+    
         <Footer/>
     </div>
   )
